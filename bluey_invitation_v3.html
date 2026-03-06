@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>🐾 ¡Invitación Bluey! 🐾</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#3B8BEB">
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1rCQAsfvUGJi6QE0zVtbGcbALfN_YsaSD">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #3B8BEB;
+      --dark: #1A5FB4;
+      --light: #A8D8EA;
+      --orange: #E8722A;
+      --yellow: #FFD93D;
+      --green: #6BCB77;
+      --bg: #E8F4FD;
+      --white: #fff;
+      --td: #1E3A5F;
+      --tm: #3D6B99;
+      --sh: 0 8px 32px rgba(59, 139, 235, 0.18);
+      --r: 26px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='24' font-size='24' style='filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));'>🐾</text></svg>") 16 16, auto;
+    }
+
+    button,
+    a,
+    .gi,
+    .ab,
+    #lbc,
+    #op,
+    .tap-btn,
+    .mbt,
+    .ftop,
+    #bluey-widget {
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='24' font-size='24' style='filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));'>🐾</text></svg>") 16 16, pointer !important;
+    }
+
+    /* ── APERTURA ── */
+    #op {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1A5FB4, #3B8BEB 55%, #A8D8EA);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: transform .9s cubic-bezier(.86, 0, .07, 1), opacity .5s;
+    }
+
+    #op.out {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .op-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .op-paw {
+      position: absolute;
+      font-size: 2.4rem;
+      opacity: .12;
+      animation: fp 5s ease-in-out infinite;
+    }
+
+    @keyframes fp {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-18px) rotate(8deg);
+      }
+    }
+
+    .op-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      z-index: 1;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .env {
+      width: 170px;
+      height: 170px;
+      animation: bIn 1s cubic-bezier(.175, .885, .32, 1.275) .3s both;
+    }
+
+    @keyframes bIn {
+      0% {
+        transform: scale(0) rotate(-12deg);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.12) rotate(4deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    .op-title {
+      color: #fff;
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+      font-weight: 900;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+      animation: fiu .8s ease .8s both;
+    }
+
+    .op-sub {
+      color: rgba(255, 255, 255, .9);
+      font-size: 1.05rem;
+      font-weight: 700;
+      animation: fiu .8s ease 1s both;
+    }
+
+    .tap-btn {
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      color: var(--td);
+      border: none;
+      border-radius: 50px;
+      padding: 15px 42px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(232, 114, 42, .4);
+      animation: fiu .8s ease 1.2s both, pu 2s ease 2.2s infinite;
+    }
+
+    @keyframes fiu {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pu {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.06);
+      }
+    }
+
+    /* ── CONFETTI ── */
+    #cc {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* ── INVITACIÓN ── */
+    #inv {
+      display: none;
+      min-height: 100vh;
+    }
+
+    #inv.on {
+      display: block;
+      animation: fadeIn .8s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(-45deg, #1A5FB4, #3B8BEB, #A8D8EA, #3B8BEB);
+      background-size: 400% 400%;
+      animation: aurora 12s ease infinite;
+      padding: 50px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes aurora {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 58px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .h-paws {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .h-paw {
+      position: absolute;
+      font-size: 2.8rem;
+      opacity: .09;
+    }
+
+    .h-img-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .h-img {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #fff;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+    }
+
+    .h-badge {
+      position: absolute;
+      bottom: 4px;
+      right: 0;
+      background: var(--yellow);
+      border-radius: 50%;
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .h-title {
+      color: #fff;
+      font-size: clamp(1.8rem, 7vw, 3.2rem);
+      font-weight: 900;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+    }
+
+    .h-name {
+      color: var(--yellow);
+      font-size: clamp(2.2rem, 9vw, 4rem);
+      font-weight: 900;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, .3);
+      display: block;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 4px 16px rgba(0, 0, 0, .3), 0 0 20px rgba(255, 217, 61, .3);
+      }
+
+      to {
+        text-shadow: 0 4px 16px rgba(0, 0, 0, .3), 0 0 40px rgba(255, 217, 61, .7);
+      }
+    }
+
+    .h-age {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      border-radius: 50px;
+      padding: 8px 26px;
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-top: 10px;
+      box-shadow: 0 4px 14px rgba(232, 114, 42, .4);
+    }
+
+    /* ── SECCIONES ── */
+    section {
+      padding: 38px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .st {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 22px;
+    }
+
+    .ico {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 14px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(59, 139, 235, .3);
+      flex-shrink: 0;
+    }
+
+    /* ── DETALLES ── */
+    .dg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media(max-width:460px) {
+      .dg {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dc {
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: var(--r);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+      box-shadow: var(--sh);
+      border-top: 4px solid var(--blue);
+      transform: perspective(1000px) rotateY(-90deg) translateX(40px);
+      opacity: 0;
+      transition: transform .8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .8s;
+    }
+
+    .rv.on .dc {
+      transform: perspective(1000px) rotateY(0) translateX(0);
+      opacity: 1;
+    }
+
+    .dg .dc:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .dg .dc:nth-child(2) {
+      transition-delay: 0.3s;
+    }
+
+    .dg .dc:nth-child(3) {
+      transition-delay: 0.5s;
+    }
+
+    .dg .dc:nth-child(4) {
+      transition-delay: 0.7s;
+    }
+
+    .dc:hover {
+      transform: perspective(1000px) rotateY(0) translateY(-5px) !important;
+      transition-delay: 0s !important;
+    }
+
+    .dc.or {
+      border-top-color: var(--orange);
+    }
+
+    .dc.ye {
+      border-top-color: var(--yellow);
+    }
+
+    .dc.gr {
+      border-top-color: var(--green);
+    }
+
+    .di {
+      font-size: 2.1rem;
+    }
+
+    .dl {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--tm);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .dv {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--td);
+      text-align: center;
+    }
+
+    /* ── COUNTDOWN ── */
+    .cdw {
+      background: linear-gradient(135deg, rgba(26, 95, 180, .85), rgba(59, 139, 235, .85));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: var(--r);
+      padding: 28px 16px;
+      display: flex;
+      justify-content: center;
+      gap: clamp(8px, 4vw, 28px);
+      box-shadow: var(--sh);
+    }
+
+    .cdi {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .cdn {
+      background: rgba(255, 255, 255, .15);
+      color: #fff;
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 900;
+      width: clamp(64px, 17vw, 85px);
+      height: clamp(64px, 17vw, 85px);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, .22);
+    }
+
+    @keyframes digitCardFlip {
+      0% {
+        transform: perspective(600px) rotateX(-90deg);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: perspective(600px) rotateX(0deg);
+        opacity: 1;
+      }
+    }
+
+    .cdn.flip {
+      animation: digitCardFlip 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .cdl {
+      color: rgba(255, 255, 255, .78);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── GALERÍA ── */
+    .gs {
+      padding: 36px 20px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .gg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 11px;
+    }
+
+    @media(max-width:380px) {
+      .gg {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .gi {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      box-shadow: 0 4px 14px rgba(59, 139, 235, .18);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px) scale(0.85);
+      transition: transform .6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .6s, box-shadow .3s;
+    }
+
+    .rv.on .gi {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .gi:hover {
+      transform: scale(1.05) translateY(-5px) !important;
+      box-shadow: 0 8px 22px rgba(59, 139, 235, .32);
+      transition-delay: 0s !important;
+    }
+
+    .gi img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gp {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #E8F4FD, #A8D8EA);
+    }
+
+    .gp span:first-child {
+      font-size: 1.9rem;
+    }
+
+    .gp span:last-child {
+      font-size: .68rem;
+      font-weight: 700;
+      color: var(--tm);
+    }
+
+    /* ── MENSAJE ── */
+    .mc {
+      background: linear-gradient(135deg, rgba(255, 249, 230, .85), rgba(255, 243, 204, .85));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: var(--r);
+      padding: 28px;
+      border-left: 6px solid var(--yellow);
+      box-shadow: 0 4px 18px rgba(255, 217, 61, .18);
+      position: relative;
+    }
+
+    .mc::before {
+      content: '"';
+      position: absolute;
+      top: -8px;
+      left: 18px;
+      font-size: 5.5rem;
+      color: var(--yellow);
+      opacity: .28;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .mt {
+      font-size: 1.05rem;
+      color: var(--td);
+      line-height: 1.75;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    /* ── TIMELINE ── */
+    .tl {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .tl::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--blue), var(--orange), var(--yellow));
+      border-radius: 3px;
+    }
+
+    .tli {
+      position: relative;
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: 16px;
+      padding: 15px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(59, 139, 235, .1);
+      transform: perspective(1000px) rotateY(-90deg) translateX(40px);
+      opacity: 0;
+      transition: transform .8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .8s;
+    }
+
+    .rv.on .tli {
+      transform: perspective(1000px) rotateY(0) translateX(0);
+      opacity: 1;
+    }
+
+    .tl .tli:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .tl .tli:nth-child(2) {
+      transition-delay: 0.25s;
+    }
+
+    .tl .tli:nth-child(3) {
+      transition-delay: 0.4s;
+    }
+
+    .tl .tli:nth-child(4) {
+      transition-delay: 0.55s;
+    }
+
+    .tl .tli:nth-child(5) {
+      transition-delay: 0.7s;
+    }
+
+    .tli:hover {
+      transform: perspective(1000px) rotateY(0) translateX(6px) !important;
+      transition-delay: 0s !important;
+    }
+
+    .tli::before {
+      content: '';
+      position: absolute;
+      left: -23px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 3px solid #fff;
+      box-shadow: 0 2px 7px rgba(59, 139, 235, .35);
+    }
+
+    .tt {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .te {
+      font-size: .98rem;
+      font-weight: 700;
+      color: var(--td);
+      margin-top: 3px;
+    }
+
+    .td2 {
+      font-size: .82rem;
+      color: var(--tm);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* ── MAPA ── */
+    .map-card {
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--sh);
+      transform: perspective(1000px) rotateY(-90deg) translateX(40px);
+      opacity: 0;
+      transition: transform .8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .8s;
+    }
+
+    .rv.on .map-card {
+      transform: perspective(1000px) rotateY(0) translateX(0);
+      opacity: 1;
+      transition-delay: 0.2s;
+    }
+
+    .map-ph {
+      height: 180px;
+      background: linear-gradient(135deg, #E8F4FD, #c8e6f5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .map-ph span:first-child {
+      font-size: 2.8rem;
+    }
+
+    .map-ph span:last-child {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--tm);
+    }
+
+    .map-inf {
+      padding: 18px;
+    }
+
+    .map-adr {
+      font-size: .98rem;
+      font-weight: 700;
+      color: var(--td);
+    }
+
+    .map-lnk {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 9px 20px;
+      font-size: .88rem;
+      font-weight: 800;
+      margin-top: 10px;
+      transition: background .3s;
+    }
+
+    .map-lnk:hover {
+      background: var(--dark);
+    }
+
+    /* ── DRESSCODE ── */
+    .drg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .drc {
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: var(--sh);
+      transform: perspective(1000px) rotateY(-90deg) translateX(40px);
+      opacity: 0;
+      transition: transform .8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .8s;
+    }
+
+    .rv.on .drc {
+      transform: perspective(1000px) rotateY(0) translateX(0);
+      opacity: 1;
+    }
+
+    .drg .drc:nth-child(1) {
+      transition-delay: 0.2s;
+    }
+
+    .drg .drc:nth-child(2) {
+      transition-delay: 0.5s;
+    }
+
+    .drc:hover {
+      transform: perspective(1000px) rotateY(0) translateY(-5px) !important;
+      transition-delay: 0s !important;
+    }
+
+    .dre {
+      font-size: 2.3rem;
+    }
+
+    .drt {
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--td);
+      margin: 7px 0 3px;
+    }
+
+    .drd {
+      font-size: .82rem;
+      color: var(--tm);
+      font-weight: 600;
+    }
+
+    .cds {
+      display: flex;
+      gap: 7px;
+      justify-content: center;
+      margin-top: 9px;
+    }
+
+    .cd {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 0, 0, .1);
+    }
+
+    /* ── RSVP ── */
+    .rs {
+      text-align: center;
+      padding: 28px 20px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .rc {
+      background: linear-gradient(135deg, rgba(232, 244, 253, .85), rgba(200, 230, 245, .85));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .6);
+      border-radius: var(--r);
+      padding: 34px 22px;
+      box-shadow: var(--sh);
+    }
+
+    .rt {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+
+    .rd {
+      font-size: .97rem;
+      color: var(--tm);
+      font-weight: 600;
+      margin-bottom: 26px;
+    }
+
+    .rdl {
+      background: var(--orange);
+      color: #fff;
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: .82rem;
+      font-weight: 800;
+      display: inline-block;
+      margin-bottom: 22px;
+    }
+
+    .bwa {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 17px 34px;
+      font-size: 1.1rem;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      box-shadow: 0 8px 22px rgba(37, 211, 102, .4);
+      transition: transform .3s;
+      border: none;
+      cursor: pointer;
+      animation: wap 2.5s ease-in-out infinite;
+    }
+
+    @keyframes wap {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 22px rgba(37, 211, 102, .4);
+      }
+
+      50% {
+        box-shadow: 0 12px 34px rgba(37, 211, 102, .65);
+      }
+    }
+
+    .bwa:hover {
+      transform: scale(1.05);
+    }
+
+    .wai {
+      width: 26px;
+      height: 26px;
+      fill: #fff;
+    }
+
+    .bg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .bcal {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #fff;
+      color: var(--dark);
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 13px 28px;
+      font-size: .96rem;
+      font-weight: 800;
+      font-family: 'Nunito', sans-serif;
+      box-shadow: 0 4px 14px rgba(59, 139, 235, .18);
+      border: 2px solid var(--blue);
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .bcal:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    /* ── JUEGO ── */
+    .game-section {
+      padding: 20px 20px 38px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .gcard {
+      background: linear-gradient(135deg, rgba(26, 95, 180, .85), rgba(59, 139, 235, .85));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: var(--r);
+      padding: 22px 14px;
+      color: #fff;
+      box-shadow: var(--sh);
+    }
+
+    .gh {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .gtit {
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .gsts {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .gst {
+      background: rgba(255, 255, 255, .18);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: .92rem;
+      font-weight: 800;
+    }
+
+    #gc {
+      display: block;
+      margin: 0 auto;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, .22);
+      background: rgba(255, 255, 255, .07);
+      touch-action: none;
+      max-width: 100%;
+    }
+
+    .gmc {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 13px;
+    }
+
+    .ab {
+      background: rgba(255, 255, 255, .18);
+      border: 2px solid rgba(255, 255, 255, .3);
+      color: #fff;
+      font-size: 1.5rem;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background .15s;
+    }
+
+    .ab:active {
+      background: rgba(255, 255, 255, .42);
+    }
+
+    .gctrls {
+      display: flex;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 13px;
+      flex-wrap: wrap;
+    }
+
+    .gbtn {
+      background: rgba(255, 255, 255, .16);
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, .28);
+      border-radius: 50px;
+      padding: 9px 26px;
+      font-size: .96rem;
+      font-weight: 800;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .gbtn:hover {
+      background: rgba(255, 255, 255, .3);
+    }
+
+    .gbtn.pri {
+      background: var(--yellow);
+      color: var(--td);
+      border-color: var(--yellow);
+    }
+
+    .gbtn.pri:hover {
+      background: #f0ca20;
+    }
+
+    .ginst {
+      font-size: .8rem;
+      text-align: center;
+      margin-top: 9px;
+      opacity: .75;
+      font-weight: 600;
+    }
+
+    .ginst span {
+      display: block;
+    }
+
+    /* ── BLUEY INTERACTIVO ── */
+    #bluey-widget {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      z-index: 500;
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    #bluey-widget.show {
+      display: flex;
+    }
+
+    .bluey-bubble {
+      background: #fff;
+      border-radius: 18px 18px 18px 4px;
+      padding: 10px 15px;
+      font-size: .88rem;
+      font-weight: 800;
+      color: var(--dark);
+      box-shadow: 0 4px 16px rgba(59, 139, 235, .25);
+      max-width: 190px;
+      animation: bubblePop .4s cubic-bezier(.175, .885, .32, 1.275);
+      border: 2px solid var(--light);
+      line-height: 1.4;
+    }
+
+    @keyframes bubblePop {
+      0% {
+        transform: scale(0) translateY(10px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .bluey-char {
+      width: 100px;
+      height: 100px;
+      animation: blueyBounce 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 6px 12px rgba(59, 139, 235, .4));
+      transition: transform .2s;
+    }
+
+    .bluey-char:hover {
+      transform: scale(1.12);
+    }
+
+    @keyframes blueyBounce {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-2deg);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(2deg);
+      }
+    }
+
+    .bluey-tap {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, .7);
+      text-align: center;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* ── BLUEY INTRO WALK ── */
+    #bluey-walk {
+      position: fixed;
+      bottom: 30px;
+      left: -120px;
+      z-index: 501;
+      pointer-events: none;
+      display: none;
+      animation: walkIn 2.2s cubic-bezier(.25, .46, .45, .94) forwards;
+    }
+
+    @keyframes walkIn {
+      0% {
+        left: -120px;
+      }
+
+      60% {
+        left: calc(50vw - 55px);
+      }
+
+      80% {
+        left: calc(50vw - 55px);
+        transform: scaleX(1) rotate(0);
+      }
+
+      90% {
+        transform: scaleX(-1) rotate(5deg);
+      }
+
+      100% {
+        left: -120px;
+        transform: scaleX(-1);
+      }
+    }
+
+    .bluey-walk-svg {
+      width: 110px;
+      height: 110px;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .85);
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lb.on {
+      display: flex;
+    }
+
+    #lb img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 14px;
+    }
+
+    #lbc {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      color: #fff;
+      font-size: 1.9rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, .18);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: linear-gradient(135deg, var(--dark), var(--blue));
+      color: rgba(255, 255, 255, .85);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .fl {
+      font-size: 2.3rem;
+      margin-bottom: 9px;
+    }
+
+    .fn {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--yellow);
+    }
+
+    .ftop {
+      position: fixed;
+      bottom: 24px;
+      right: 18px;
+      z-index: 50;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mbt {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 200;
+      background: rgba(255, 255, 255, .9);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .14);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mbt.on {
+      display: flex;
+    }
+
+    /* ── REVEAL ── */
+    .rv {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .rv.on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── BUBBLES BG ── */
+    .bbl {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(168, 216, 234, .3);
+      pointer-events: none;
+      z-index: 1;
+      animation: rise linear infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: .65;
+      }
+
+      100% {
+        transform: translateY(-100vh) scale(.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="cc"></canvas>
+  <div id="lb">
+    <div id="lbc" onclick="closeLB()">✕</div><img id="lbi" src="" alt="foto">
+  </div>
+
+  <!-- APERTURA -->
+  <div id="op" onclick="openInv()">
+    <div class="op-bg" id="opBg"></div>
+    <div class="op-content">
+      <div class="env">
+        <svg viewBox="0 0 200 200" fill="none"
+          style="width:100%;height:100%;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3))">
+          <rect x="10" y="55" width="180" height="120" rx="16" fill="#1A5FB4" opacity=".85" />
+          <path d="M10 71 L100 125 L190 71" stroke="white" stroke-width="2.5" fill="none" opacity=".6" />
+          <path d="M10 55 L100 118 L190 55" fill="#2563EB" opacity=".75" />
+          <foreignObject x="60" y="15" width="80" height="80">
+            <img src="https://media.giphy.com/media/8T1GiAHZTmbMPOuEuw/giphy.gif"
+              style="width:100%;height:100%;object-fit:contain;border-radius:50%;background:#FFD93D;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+          </foreignObject>
+        </svg>
+      </div>
+      <div class="op-title">¡Tienes una invitación<br>muy especial! 🎉</div>
+      <div class="op-sub">Toca para descubrir la sorpresa 🐾</div>
+      <button class="tap-btn">🎈 ¡Abrir Invitación!</button>
+    </div>
+  </div>
+
+  <!-- BLUEY WALK INTRO -->
+  <div id="bluey-walk">
+    <svg class="bluey-walk-svg" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cuerpo -->
+      <ellipse cx="60" cy="100" rx="32" ry="34" fill="#4A90D9" />
+      <!-- Cabeza -->
+      <circle cx="60" cy="52" r="30" fill="#4A90D9" />
+      <!-- Parche cara -->
+      <ellipse cx="60" cy="57" rx="17" ry="15" fill="#F0E0B0" />
+      <!-- Ojos -->
+      <circle cx="52" cy="47" r="5.5" fill="#111" />
+      <circle cx="68" cy="47" r="5.5" fill="#111" />
+      <circle cx="53.5" cy="45.5" r="1.8" fill="white" />
+      <circle cx="69.5" cy="45.5" r="1.8" fill="white" />
+      <!-- Nariz -->
+      <ellipse cx="60" cy="57" rx="4" ry="3" fill="#111" />
+      <!-- Sonrisa -->
+      <path d="M53 63 Q60 70 67 63" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round" />
+      <!-- Orejas -->
+      <ellipse cx="36" cy="30" rx="9" ry="16" fill="#3A7BC8" transform="rotate(-18 36 30)" />
+      <ellipse cx="84" cy="30" rx="9" ry="16" fill="#3A7BC8" transform="rotate(18 84 30)" />
+      <!-- Cola -->
+      <path d="M92 88 Q112 72 106 54" stroke="#3A7BC8" stroke-width="9" fill="none" stroke-linecap="round" />
+      <!-- Brazos -->
+      <ellipse cx="26" cy="98" rx="9" ry="16" fill="#3A7BC8" transform="rotate(22 26 98)" />
+      <ellipse cx="94" cy="98" rx="9" ry="16" fill="#3A7BC8" transform="rotate(-22 94 98)" />
+      <!-- Piernas -->
+      <ellipse cx="46" cy="128" rx="10" ry="14" fill="#3A7BC8" />
+      <ellipse cx="74" cy="128" rx="10" ry="14" fill="#3A7BC8" />
+      <!-- Patitas -->
+      <ellipse cx="46" cy="138" rx="12" ry="5.5" fill="#2D6AB0" />
+      <ellipse cx="74" cy="138" rx="12" ry="5.5" fill="#2D6AB0" />
+      <!-- Manchitas -->
+      <circle cx="72" cy="95" r="5" fill="#3A7BC8" opacity=".6" />
+      <circle cx="50" cy="105" r="4" fill="#3A7BC8" opacity=".5" />
+    </svg>
+  </div>
+
+  <!-- BLUEY WIDGET FIJO -->
+  <div id="bluey-widget" onclick="blueyClick()">
+    <div class="bluey-bubble" id="blueyBubble">¡Yippee! 🎉 ¡Es mi fiesta! ¿Vienes? 🐾</div>
+    <img class="bluey-char" src="https://media.giphy.com/media/8T1GiAHZTmbMPOuEuw/giphy.gif" alt="Bluey"
+      style="background:transparent; pointer-events:none; filter: drop-shadow(0 6px 12px rgba(59, 139, 235, .4)); transform: scale(1.3); margin-top: -10px;">
+    <div class="bluey-tap">¡Tócame! 👆</div>
+  </div>
+
+  <button class="mbt" id="mbt" onclick="toggleMusic()">🎵</button>
+  <button class="ftop" id="ftop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+
+  <!-- INVITACIÓN -->
+  <div id="inv">
+
+    <div class="hero rv">
+      <video src="bluey_background.mp4" autoplay loop muted playsinline
+        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.6;pointer-events:none;mix-blend-mode:overlay;"></video>
+      <div class="h-paws" id="hPaws" style="z-index:1;"></div>
+      <div class="h-img-wrap" style="position:relative;z-index:2;">
+        <img class="h-img" id="hPhoto" fetchpriority="high"
+          src="https://lh3.googleusercontent.com/d/1rCQAsfvUGJi6QE0zVtbGcbALfN_YsaSD"
+          onerror="this.style.display='none';document.getElementById('hEmoji').style.display='flex'" alt="Festejado/a">
+        <div id="hEmoji"
+          style="display:none;width:190px;height:190px;border-radius:50%;background:linear-gradient(135deg,#3B8BEB,#A8D8EA);border:6px solid #fff;align-items:center;justify-content:center;font-size:5rem;box-shadow:0 12px 40px rgba(0,0,0,.25);margin:0 auto;">
+          🐾</div>
+        <div class="h-badge">🌟</div>
+      </div>
+      <h1 class="h-title" style="position:relative;z-index:2;">¡Cumpleaños de</h1>
+      <span class="h-name" id="hName" style="position:relative;z-index:2;">[Tu Nombre]</span>
+      <div class="h-age" id="hAge" style="position:relative;z-index:2;">🎂 X Añitos</div>
+      <p style="color:rgba(255,255,255,.88);font-size:1rem;font-weight:600;margin-top:9px;position:relative;z-index:2;">
+        ¡Ven a celebrar conmigo! 🐶✨
+      </p>
+    </div>
+
+    <section class="rv">
+      <div class="st">
+        <div class="ico">📋</div>Detalles de la Fiesta
+      </div>
+      <div class="dg">
+        <div class="dc"><span class="di">📅</span><span class="dl">Fecha</span><span class="dv" id="eDate">DD de Mes,
+            AAAA</span></div>
+        <div class="dc or"><span class="di">⏰</span><span class="dl">Hora</span><span class="dv" id="eTime">00:00
+            hrs</span></div>
+        <div class="dc ye"><span class="di">📍</span><span class="dl">Lugar</span><span class="dv" id="ePlace">Nombre
+            del Lugar</span></div>
+        <div class="dc gr"><span class="di">👶</span><span class="dl">Cumpleañero/a</span><span class="dv"
+            id="eKid">NOMBRE, X Añitos 🎂</span></div>
+      </div>
+    </section>
+
+    <section class="rv">
+      <div class="st">
+        <div class="ico">⏳</div>¡Faltan!
+      </div>
+      <div class="cdw">
+        <div class="cdi">
+          <div class="cdn" id="cdD">00</div>
+          <div class="cdl">Días</div>
+        </div>
+        <div class="cdi">
+          <div class="cdn" id="cdH">00</div>
+          <div class="cdl">Horas</div>
+        </div>
+        <div class="cdi">
+          <div class="cdn" id="cdM">00</div>
+          <div class="cdl">Minutos</div>
+        </div>
+        <div class="cdi">
+          <div class="cdn" id="cdS">00</div>
+          <div class="cdl">Segundos</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gs rv">
+      <div class="st">
+        <div class="ico">📸</div>Galería del Festejado/a
+      </div>
+      <div class="gg" id="gg"></div>
+    </div>
+
+    <section class="rv">
+      <div class="st">
+        <div class="ico">💌</div>Mensaje Especial
+      </div>
+      <div class="mc">
+        <p class="mt" id="msgTxt">"Queridos amigos y familia, con mucha alegría los invitamos a compartir este día tan
+          especial. ¡Habrá mucha diversión, juegos y sorpresas al estilo de Bluey! No pueden faltar, los esperamos con
+          los brazos abiertos. 🐾🎉"</p>
+      </div>
+    </section>
+
+    <section class="rv">
+      <div class="st">
+        <div class="ico">🎪</div>Programa del Evento
+      </div>
+      <div class="tl">
+        <div class="tli">
+          <div class="tt">⏰ 16:00 hrs</div>
+          <div class="te">🎈 Recepción de Invitados</div>
+          <div class="td2">¡Bienvenida al mundo de Bluey!</div>
+        </div>
+        <div class="tli">
+          <div class="tt">⏰ 16:30 hrs</div>
+          <div class="te">🎮 Juegos y Actividades</div>
+          <div class="td2">Juegos temáticos, pintacaritas y más sorpresas</div>
+        </div>
+        <div class="tli">
+          <div class="tt">⏰ 17:30 hrs</div>
+          <div class="te">🍕 Tiempo de Comida</div>
+          <div class="td2">¡Deliciosa comida para todos los invitados!</div>
+        </div>
+        <div class="tli">
+          <div class="tt">⏰ 18:30 hrs</div>
+          <div class="te">🎂 Pastel y Piñata</div>
+          <div class="td2">¡El momento más esperado! Sorpresas y dulces</div>
+        </div>
+        <div class="tli">
+          <div class="tt">⏰ 19:30 hrs</div>
+          <div class="te">🎁 Entrega de Recuerdos</div>
+          <div class="td2">¡Un recuerdito especial para llevarte a casa!</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rv">
+      <div class="st">
+        <div class="ico">👗</div>Código de Vestimenta
+      </div>
+      <div class="drg">
+        <div class="drc">
+          <div class="dre">🐾</div>
+          <div class="drt">Temática Bluey</div>
+          <div class="drd">¡Ven disfrazado de tu personaje favorito!</div>
+          <div class="cds">
+            <div class="cd" style="background:#3B8BEB"></div>
+            <div class="cd" style="background:#E8722A"></div>
+            <div class="cd" style="background:#FFD93D"></div>
+          </div>
+        </div>
+        <div class="drc">
+          <div class="dre">😊</div>
+          <div class="drt">Ropa Cómoda</div>
+          <div class="drd">¡Vengan listos para jugar mucho!</div>
+          <div class="cds">
+            <div class="cd" style="background:#6BCB77"></div>
+            <div class="cd" style="background:#A8D8EA"></div>
+            <div class="cd" style="background:#FFAD7E"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rv">
+      <div class="st">
+        <div class="ico">🗺️</div>¿Cómo llegar?
+      </div>
+      <div class="map-card">
+        <div class="map-ph"><span>📍</span><span>Insertar iframe de Google Maps aquí</span></div>
+        <div class="map-inf">
+          <div class="map-adr" id="mapAdr">📍 Dirección del evento, Ciudad, Veracruz</div>
+          <a href="#" class="map-lnk" id="mapLnk">🗺️ Ver en Google Maps</a>
+        </div>
+      </div>
+  </div>
+
+  <!-- MESA DE REGALOS -->
+  <section class="rv">
+    <div class="st">
+      <div class="ico">🎁</div>Mesa de Regalos
+    </div>
+    <div class="drc" style="text-align:center;">
+      <div class="dre" style="font-size:3rem;margin-bottom:10px;">🐷</div>
+      <p style="font-size:0.95rem;color:var(--td);font-weight:700;margin-bottom:15px;">Tu presencia es nuestro mejor
+        regalo, pero si deseas tener un detalle con <span id="gName">[Tu Nombre]</span>, puedes hacerlo mediante
+        transferencia o en nuestro buzón el día del evento.</p>
+      <div style="background:rgba(59,139,235,0.1);padding:15px;border-radius:12px;border:2px dashed var(--blue);">
+        <strong style="color:var(--dark);font-size:1.1rem;display:block;margin-bottom:5px;">Datos Bancarios</strong>
+        <span style="color:var(--td);display:block;font-size:0.9rem;">Banco: <strong>STP / BBVA</strong></span>
+        <span style="color:var(--td);display:block;font-size:0.9rem;">CLABE: <strong>0000 0000 0000 0000</strong></span>
+        <span style="color:var(--td);display:block;font-size:0.9rem;">A nombre de: <strong>Papás de [Tu
+            Nombre]</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYLIST -->
+  <section class="rv">
+    <div class="st">
+      <div class="ico">🎧</div>Nuestra Playlist
+    </div>
+    <div class="drc" style="padding:0;overflow:hidden;">
+      <iframe style="border-radius:18px;"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DX1s9knjP51Oa?utm_source=generator&theme=0" width="100%"
+        height="152" frameBorder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- MURO DE MENSAJES -->
+  <section class="rv">
+    <div class="st">
+      <div class="ico">📝</div>Muro de Mensajes
+    </div>
+    <div class="drc" style="text-align:left;">
+      <p style="font-size:0.9rem;font-weight:700;color:var(--tm);margin-bottom:15px;text-align:center;">¡Déjale un
+        mensajito especial antes de la fiesta! 🐾</p>
+
+      <div id="msgWall"
+        style="max-height:250px;overflow-y:auto;padding-right:10px;margin-bottom:15px;display:flex;flex-direction:column;gap:10px;">
+        <!-- Mensaje Demo 1 -->
+        <div
+          style="background:rgba(255,217,61,0.15);padding:12px;border-radius:12px;border-left:4px solid var(--yellow);">
+          <strong style="color:var(--dark);font-size:0.9rem;">Los Abuelos 👴👵</strong>
+          <p style="color:var(--td);font-size:0.85rem;margin-top:4px;">¡Ya queremos verte jugar y romper la piñata! Te
+            amamos mucho. 🎉</p>
+        </div>
+        <!-- Mensaje Demo 2 -->
+        <div
+          style="background:rgba(107,203,119,0.15);padding:12px;border-radius:12px;border-left:4px solid var(--green);">
+          <strong style="color:var(--dark);font-size:0.9rem;">Tía Muffin 🐾</strong>
+          <p style="color:var(--td);font-size:0.85rem;margin-top:4px;">¡Llevaré mi vestido de flamenca para bailar!
+            ¡Feliz cumple! 💃</p>
+        </div>
+      </div>
+
+      <div
+        style="display:flex;flex-direction:column;gap:10px;margin-top:15px;border-top:2px solid rgba(0,0,0,0.05);padding-top:15px;">
+        <input type="text" id="gGuest" placeholder="Tu nombre..."
+          style="width:100%;padding:10px 14px;border-radius:8px;border:2px solid rgba(59,139,235,0.3);font-family:'Nunito',sans-serif;font-weight:700;outline:none;">
+        <textarea id="gMsg" rows="2" placeholder="Escribe tu mensaje aquí..."
+          style="width:100%;padding:10px 14px;border-radius:8px;border:2px solid rgba(59,139,235,0.3);font-family:'Nunito',sans-serif;font-weight:600;outline:none;resize:none;"></textarea>
+        <button onclick="postMsg()"
+          style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:12px;font-weight:900;font-family:'Nunito',sans-serif;font-size:1rem;cursor:pointer;box-shadow:0 4px 12px rgba(59,139,235,0.3);transition:transform 0.2s;">💌
+          Enviar Mensaje</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="rs rv">
+    <div class="rc">
+      <div class="rt">¿Puedes venir? 🐾</div>
+      <div class="rd">¡Confírmanos tu asistencia para preparar todo con amor!</div>
+      <div class="rdl" id="rDl">📅 Confirma antes del DD/MM</div>
+      <div class="bg">
+        <a href="#" class="bwa" id="waBtn" target="_blank">
+          <svg class="wai" viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          ¡Confirmar por WhatsApp!
+        </a>
+        <button class="bcal" onclick="addCal()">📅 Agregar al Calendario</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-section rv">
+    <div class="st">
+      <div class="ico">🎮</div>Mini-Juego: ¡Atrapa los Huesos!
+    </div>
+    <div class="gcard">
+      <div class="gh">
+        <div class="gtit">🐾 ¡Ayuda a Bluey!</div>
+        <div class="gsts">
+          <div class="gst">⭐ <span id="gScore">0</span></div>
+          <div class="gst">❤️ <span id="gLives">3</span></div>
+        </div>
+      </div>
+      <canvas id="gc" width="400" height="290"></canvas>
+      <div class="gmc">
+        <button class="ab" id="btnL">◀</button>
+        <button class="ab" id="btnR">▶</button>
+      </div>
+      <div class="gctrls">
+        <button class="gbtn pri" id="gStartBtn" onclick="startGame()">▶ Iniciar</button>
+        <button class="gbtn" onclick="resetGame()">↺ Reiniciar</button>
+      </div>
+      <div class="ginst">
+        <span>🖥️ PC: Teclas ← → &nbsp;|&nbsp; 📱 Móvil: Botones ◀ ▶ o desliza</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="fl">🐾🎈🐾</div>
+    <div class="fn" id="fName">¡Celebramos con mucho amor!</div>
+    <p style="margin-top:7px;font-size:.82rem;">Hecho con 💙 especialmente para esta ocasión</p>
+    <p style="margin-top:4px;opacity:.55;font-size:.78rem;">🐶 Bluey Birthday Party 🎂</p>
+  </footer>
+  </div>
+
+  <script>
+    // ── CONFIG ──
+    var C = {
+      nombre: "[Tu Nombre Va Aquí]", edad: "X",
+      fecha: "2025-06-15", hora: "16:00", fechaTxt: "15 de Junio, 2025",
+      lugar: "Salón de Fiestas", dir: "Calle, Colonia, Ciudad, Veracruz",
+      maps: "https://maps.google.com/?q=Xalapa+Veracruz",
+      wa: "5212281234567", deadline: "10 de Junio, 2025",
+      msg: "Queridos amigos y familia, con mucha alegría los invitamos a compartir este día tan especial. ¡Habrá mucha diversión, juegos y sorpresas al estilo de Bluey! No pueden faltar, los esperamos con los brazos abiertos. 🐾🎉",
+      hero: "https://lh3.googleusercontent.com/d/1rCQAsfvUGJi6QE0zVtbGcbALfN_YsaSD",
+      fotos: [
+        "https://lh3.googleusercontent.com/d/1IL6bI73cALNDYPxFXj8tzGtP4IKgrpGo",
+        "https://lh3.googleusercontent.com/d/1siEoDJeC1FkIJqM37nCNgIuDddMsAe7U",
+        "https://lh3.googleusercontent.com/d/1KmUSieT05cPCbcs43vY90OVg-fkmPAVh",
+        "", "", ""
+      ]
+    };
+
+    // ── AUDIO ──
+    var actx = null;
+    function initAudio() { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === 'suspended') actx.resume(); }
+    function playSnd(t) {
+      if (!actx) return; var o = actx.createOscillator(), g = actx.createGain(); o.connect(g); g.connect(actx.destination);
+      if (t === 'c') {
+        o.type = 'sine'; o.frequency.setValueAtTime(600, actx.currentTime); o.frequency.exponentialRampToValueAtTime(1200, actx.currentTime + .1);
+        g.gain.setValueAtTime(.3, actx.currentTime); g.gain.exponentialRampToValueAtTime(.01, actx.currentTime + .1); o.start(); o.stop(actx.currentTime + .1);
+      } else {
+        o.type = 'sawtooth'; o.frequency.setValueAtTime(300, actx.currentTime); o.frequency.exponentialRampToValueAtTime(100, actx.currentTime + .2);
+        g.gain.setValueAtTime(.3, actx.currentTime); g.gain.exponentialRampToValueAtTime(.01, actx.currentTime + .2); o.start(); o.stop(actx.currentTime + .2);
+      }
+    }
+
+    // ── INIT CONFIG ──
+    function initCfg() {
+      document.getElementById("hName").textContent = C.nombre;
+      document.getElementById("hAge").textContent = "🎂 " + C.edad + " Añitos";
+      document.getElementById("eDate").textContent = C.fechaTxt;
+      document.getElementById("eTime").textContent = C.hora + " hrs";
+      document.getElementById("ePlace").textContent = C.lugar;
+      document.getElementById("eKid").textContent = C.nombre + ", " + C.edad + " Añitos 🎂";
+      document.getElementById("mapAdr").textContent = "📍 " + C.dir;
+      document.getElementById("mapLnk").href = C.maps;
+      document.getElementById("msgTxt").textContent = '"' + C.msg + '"';
+      document.getElementById("rDl").textContent = "📅 Confirma antes del " + C.deadline;
+      document.getElementById("fName").textContent = "¡Feliz Cumpleaños, " + C.nombre + "!";
+      var wm = encodeURIComponent("¡Hola! 🐾 Confirmo mi asistencia al cumpleaños de " + C.nombre + " el " + C.fechaTxt + " a las " + C.hora + " hrs. ¡Ahí estaremos! 🎉🎈");
+      document.getElementById("waBtn").href = "https://wa.me/" + C.wa + "?text=" + wm;
+      document.getElementById("waBtn").addEventListener("click", function () { triggerConfetti(); });
+      // Hero foto
+      if (C.hero) {
+        var ph = document.getElementById("hPhoto");
+        ph.src = C.hero; ph.style.display = "block";
+        document.getElementById("hEmoji").style.display = "none";
+      }
+      // Galería
+      var gg = document.getElementById("gg"); gg.innerHTML = "";
+      var em = ["🐾", "🎂", "🎈", "⭐", "🎁", "🎉"];
+      for (var i = 0; i < 6; i++) {
+        var it = document.createElement("div"); it.className = "gi";
+        it.style.transitionDelay = (i * 0.12) + "s";
+        if (C.fotos[i]) {
+          var s = C.fotos[i];
+          it.innerHTML = '<img src="' + s + '" alt="Foto ' + (i + 1) + '" loading="lazy" onclick="openLB(\'' + s + '\')">';
+        } else {
+          it.innerHTML = '<div class="gp"><span>' + em[i] + '</span><span>Foto ' + (i + 1) + '</span></div>';
+        }
+        gg.appendChild(it);
+      }
+    }
+
+    // ── APERTURA ──
+    function initOpBg() {
+      var bg = document.getElementById("opBg");
+      var pw = ["🐾", "🎈", "⭐", "🎂", "🎁", "🐶", "🌟"];
+      for (var i = 0; i < 20; i++) {
+        var el = document.createElement("div"); el.className = "op-paw";
+        el.textContent = pw[i % pw.length];
+        el.style.cssText = "position:absolute;font-size:2.4rem;opacity:.12;left:" + Math.random() * 100 + "%;top:" + Math.random() * 100 + "%;animation:fp " + (4 + Math.random() * 4) + "s ease-in-out " + Math.random() * 3 + "s infinite;";
+        bg.appendChild(el);
+      }
+    }
+    initOpBg();
+
+    function openInv() {
+      initAudio();
+      document.getElementById("op").classList.add("out");
+      setTimeout(function () {
+        document.getElementById("inv").classList.add("on");
+        document.getElementById("mbt").classList.add("on");
+        triggerConfetti();
+        initReveal();
+        mkBubbles();
+        startCD();
+        initHPaws();
+        blueyWalkIn();
+        initGame();
+      }, 600);
+    }
+
+    // ── BLUEY INTERACTIVO ──
+    var blueyMsgs = [
+      "¡Yippee! 🎉 ¡Es mi fiesta! ¿Vienes? 🐾",
+      "¡Soy Bluey! 🐶 ¡Te estoy esperando!",
+      "¡Habrá pastel! 🎂 ¡No puedes faltar!",
+      "¿Jugamos juntos? 🎮 ¡Será genial!",
+      "¡Woof! 🐾 ¡Toca el botón de WhatsApp!",
+      "¡Bingo y yo queremos verte! 🧡💙",
+      "¡Habrá piñata! 🎊 ¡¡APÚRATE!!",
+      "¡Seré la cumpleañera más feliz! ⭐",
+    ];
+    var blueyIdx = 0;
+    var blueyAuto;
+
+    function blueyClick() {
+      blueyIdx = (blueyIdx + 1) % blueyMsgs.length;
+      var bub = document.getElementById("blueyBubble");
+      bub.style.animation = "none";
+      void bub.offsetWidth;
+      bub.style.animation = "bubblePop .4s cubic-bezier(.175,.885,.32,1.275)";
+      bub.textContent = blueyMsgs[blueyIdx];
+      miniConfettiAt(40, window.innerHeight - 120);
+    }
+
+    function startBlueyAuto() {
+      blueyAuto = setInterval(function () {
+        blueyIdx = (blueyIdx + 1) % blueyMsgs.length;
+        var bub = document.getElementById("blueyBubble");
+        bub.style.animation = "none";
+        void bub.offsetWidth;
+        bub.style.animation = "bubblePop .4s cubic-bezier(.175,.885,.32,1.275)";
+        bub.textContent = blueyMsgs[blueyIdx];
+      }, 4500);
+    }
+
+    function blueyWalkIn() {
+      var w = document.getElementById("bluey-walk");
+      w.style.display = "block";
+      setTimeout(function () {
+        w.style.display = "none";
+        var wid = document.getElementById("bluey-widget");
+        wid.classList.add("show");
+        startBlueyAuto();
+      }, 2400);
+    }
+
+    // ── MINI CONFETTI EN POSICIÓN ──
+    function miniConfettiAt(x, y) {
+      var canvas = document.getElementById("cc");
+      var ctx = canvas.getContext("2d");
+      var cols = ["#3B8BEB", "#E8722A", "#FFD93D", "#6BCB77", "#A8D8EA", "#fff"];
+      var pts = [];
+      for (var i = 0; i < 30; i++) {
+        var a = Math.random() * Math.PI * 2;
+        var spd = 2 + Math.random() * 4;
+        pts.push({
+          x: x, y: y, vx: Math.cos(a) * spd, vy: Math.sin(a) * spd - 3,
+          w: 5 + Math.random() * 6, h: 4 + Math.random() * 5,
+          col: cols[Math.floor(Math.random() * cols.length)],
+          ang: Math.random() * 360, spin: (Math.random() - .5) * 10, ttl: 40
+        });
+      }
+      function draw() {
+        pts.forEach(function (p) {
+          ctx.save(); ctx.translate(p.x + p.w / 2, p.y + p.h / 2); ctx.rotate(p.ang * Math.PI / 180);
+          ctx.globalAlpha = p.ttl / 40; ctx.fillStyle = p.col; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+          p.x += p.vx; p.y += p.vy; p.vy += .18; p.ang += p.spin; p.ttl--;
+        });
+        pts = pts.filter(function (p) { return p.ttl > 0; });
+        if (pts.length > 0) requestAnimationFrame(draw);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      draw();
+    }
+
+    // ── HERO PAWS ──
+    function initHPaws() {
+      var p = document.getElementById("hPaws");
+      var items = ["🐾", "⭐", "🎈", "✦", "🌟"];
+      for (var i = 0; i < 12; i++) {
+        var el = document.createElement("div"); el.className = "h-paw";
+        el.textContent = items[i % items.length];
+        el.style.cssText = "left:" + Math.random() * 100 + "%;top:" + Math.random() * 100 + "%;";
+        p.appendChild(el);
+      }
+    }
+
+    // ── CONFETTI COMPLETO ──
+    function triggerConfetti() {
+      var cv = document.getElementById("cc");
+      var ctx = cv.getContext("2d");
+      cv.width = window.innerWidth; cv.height = window.innerHeight;
+      var cols = ["#3B8BEB", "#E8722A", "#FFD93D", "#6BCB77", "#A8D8EA", "#FFAD7E", "#fff"];
+      var ps = [];
+      for (var i = 0; i < 160; i++) ps.push({
+        x: Math.random() * cv.width, y: Math.random() * -cv.height,
+        w: 7 + Math.random() * 10, h: 5 + Math.random() * 8, col: cols[Math.floor(Math.random() * cols.length)],
+        spd: 2 + Math.random() * 4, ang: Math.random() * 360, spin: (Math.random() - .5) * 8, sw: (Math.random() - .5) * 2
+      });
+      var f = 0;
+      function draw() {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        ps.forEach(function (p) {
+          ctx.save(); ctx.translate(p.x + p.w / 2, p.y + p.h / 2); ctx.rotate(p.ang * Math.PI / 180);
+          ctx.fillStyle = p.col; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+          p.y += p.spd; p.x += p.sw; p.ang += p.spin;
+        });
+        f++;
+        if (f < 220) requestAnimationFrame(draw);
+        else ctx.clearRect(0, 0, cv.width, cv.height);
+      }
+      draw();
+    }
+
+    // ── COUNTDOWN ──
+    function updVal(id, nv) {
+      var el = document.getElementById(id); var str = String(nv).padStart(2, "0");
+      if (el.textContent !== str) {
+        el.textContent = str; el.classList.remove("flip");
+        void el.offsetWidth; el.classList.add("flip");
+      }
+    }
+    function startCD() {
+      function upd() {
+        var pt = C.fecha.split("-"), tp = C.hora.split(":");
+        var tg = new Date(+pt[0], +pt[1] - 1, +pt[2], +tp[0], +tp[1], 0);
+        var df = tg - new Date();
+        if (df <= 0) { ["cdD", "cdH", "cdM", "cdS"].forEach(function (id) { updVal(id, 0); }); return; }
+        updVal("cdD", Math.floor(df / 86400000));
+        updVal("cdH", Math.floor((df % 86400000) / 3600000));
+        updVal("cdM", Math.floor((df % 3600000) / 60000));
+        updVal("cdS", Math.floor((df % 60000) / 1000));
+      }
+      upd(); setInterval(upd, 1000);
+    }
+
+    // ── SCROLL REVEAL & PARALLAX ──
+    function initReveal() {
+      var els = document.querySelectorAll(".rv");
+      var hp = document.getElementById("hPaws");
+      function chk() {
+        var s = window.scrollY;
+        if (hp) hp.style.transform = "translateY(" + (s * .4) + "px)";
+        els.forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add("on"); });
+        document.getElementById("ftop").style.display = s > 400 ? "flex" : "none";
+      }
+      chk(); window.addEventListener("scroll", chk, { passive: true });
+    }
+
+    // ── BUBBLES ──
+    function mkBubbles() {
+      for (var i = 0; i < 10; i++) {
+        var b = document.createElement("div"); b.className = "bbl";
+        var s = 18 + Math.random() * 44;
+        b.style.cssText = "width:" + s + "px;height:" + s + "px;left:" + Math.random() * 100 + "vw;bottom:-60px;"
+          + "animation-duration:" + (5 + Math.random() * 8) + "s;animation-delay:" + Math.random() * 7 + "s;";
+        document.body.appendChild(b);
+      }
+    }
+
+    // ── LIGHTBOX ──
+    function openLB(src) { document.getElementById("lbi").src = src; document.getElementById("lb").classList.add("on"); }
+    function closeLB() { document.getElementById("lb").classList.remove("on"); }
+    document.getElementById("lb").addEventListener("click", function (e) { if (e.target === this) closeLB(); });
+
+    // ── MÚSICA ──
+    var mp = false;
+    function toggleMusic() { var b = document.getElementById("mbt"); mp = !mp; b.textContent = mp ? "🔊" : "🎵"; }
+
+    // ── CALENDARIO ──
+    function addCal() {
+      var s = C.fecha.replace(/-/g, "") + "T" + C.hora.replace(":", "") + "00";
+      window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent("🎂 Cumpleaños de " + C.nombre) + "&dates=" + s + "/" + s + "&details=" + encodeURIComponent("¡Fiesta de Bluey! " + C.dir) + "&location=" + encodeURIComponent(C.dir), "_blank");
+    }
+
+    // ── MURO DE MENSAJES SIMULADO ──
+    function postMsg() {
+      var name = document.getElementById("gGuest").value.trim();
+      var msg = document.getElementById("gMsg").value.trim();
+
+      if (!name || !msg) {
+        alert("¡Por favor escribe tu nombre y un mensaje! 🐾");
+        return;
+      }
+
+      var wall = document.getElementById("msgWall");
+      var newMsg = document.createElement("div");
+      newMsg.style.cssText = "background:rgba(59,139,235,0.15);padding:12px;border-radius:12px;border-left:4px solid var(--blue);animation:fadeIn 0.5s ease;";
+      newMsg.innerHTML = '<strong style="color:var(--dark);font-size:0.9rem;">' + name.replace(/</g, "&lt;") + ' ✨</strong><p style="color:var(--td);font-size:0.85rem;margin-top:4px;">' + msg.replace(/</g, "&lt;") + '</p>';
+
+      wall.prepend(newMsg);
+      document.getElementById("gGuest").value = "";
+      document.getElementById("gMsg").value = "";
+      triggerConfetti();
+    }
+
+    // ── JUEGO ──
+    var G = {
+      cv: null, ctx: null, run: false, aid: null, score: 0, lives: 3,
+      bsk: { x: 0, y: 0, w: 72, h: 26 }, items: [], efx: [], keys: { l: false, r: false },
+      sTimer: 0, sDelay: 1400, diff: 0, W: 400, H: 290
+    };
+    var ITYPES = [{ e: "🦴", p: 10, b: false }, { e: "⭐", p: 20, b: false }, { e: "🎈", p: 15, b: false },
+    { e: "🎂", p: 25, b: false }, { e: "💣", p: -10, b: true }, { e: "❌", p: -5, b: true }];
+
+    function rrect(ctx, x, y, w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function initGame() {
+      G.cv = document.getElementById("gc"); G.ctx = G.cv.getContext("2d");
+      G.cv.width = G.W; G.cv.height = G.H; G.cv.style.maxWidth = "100%"; G.cv.style.height = "auto";
+      G.bsk.x = G.W / 2 - G.bsk.w / 2; G.bsk.y = G.H - 44;
+      window.bskImg = new Image();
+      window.bskImg.src = "https://media.giphy.com/media/8T1GiAHZTmbMPOuEuw/giphy.gif";
+      window.bskImg.onload = drawIdle;
+      drawIdle(); setupCtrl();
+    }
+
+    function setupCtrl() {
+      document.addEventListener("keydown", function (e) {
+        if (!G.run) return;
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { G.keys.l = true; e.preventDefault(); }
+        if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") { G.keys.r = true; e.preventDefault(); }
+      });
+      document.addEventListener("keyup", function (e) {
+        if (!G.run) return;
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") G.keys.l = false;
+        if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") G.keys.r = false;
+      });
+      function pr(d, v) { if (d === "l") G.keys.l = v; else G.keys.r = v; }
+      var bL = document.getElementById("btnL"), bR = document.getElementById("btnR");
+      bL.addEventListener("mousedown", function () { pr("l", true) }); bL.addEventListener("mouseup", function () { pr("l", false) });
+      bL.addEventListener("mouseleave", function () { pr("l", false) });
+      bL.addEventListener("touchstart", function (e) { pr("l", true); e.preventDefault(); }, { passive: false });
+      bL.addEventListener("touchend", function (e) { pr("l", false); e.preventDefault(); }, { passive: false });
+      bR.addEventListener("mousedown", function () { pr("r", true) }); bR.addEventListener("mouseup", function () { pr("r", false) });
+      bR.addEventListener("mouseleave", function () { pr("r", false) });
+      bR.addEventListener("touchstart", function (e) { pr("r", true); e.preventDefault(); }, { passive: false });
+      bR.addEventListener("touchend", function (e) { pr("r", false); e.preventDefault(); }, { passive: false });
+      var tx0 = 0;
+      G.cv.addEventListener("touchstart", function (e) { tx0 = e.touches[0].clientX; }, { passive: true });
+      G.cv.addEventListener("touchmove", function (e) {
+        if (!G.run) return;
+        var dx = e.touches[0].clientX - tx0;
+        G.bsk.x += dx * 1.6; G.bsk.x = Math.max(0, Math.min(G.W - G.bsk.w, G.bsk.x));
+        tx0 = e.touches[0].clientX; e.preventDefault();
+      }, { passive: false });
+    }
+
+    function startGame() {
+      if (G.run) return;
+      G.score = 0; G.lives = 3; G.items = []; G.efx = []; G.sTimer = 0; G.sDelay = 1400; G.diff = 0;
+      G.bsk.x = G.W / 2 - G.bsk.w / 2;
+      document.getElementById("gScore").textContent = "0";
+      document.getElementById("gLives").textContent = "3";
+      document.getElementById("gStartBtn").textContent = "⏸ Jugando";
+      G.run = true;
+      var last = performance.now();
+      function loop(now) {
+        if (!G.run) return;
+        var dt = Math.min(now - last, 50); last = now;
+        updGame(dt); drawFrm();
+        G.aid = requestAnimationFrame(loop);
+      }
+      G.aid = requestAnimationFrame(loop);
+    }
+
+    function resetGame() {
+      G.run = false; cancelAnimationFrame(G.aid);
+      G.score = 0; G.lives = 3; G.items = []; G.efx = []; G.keys.l = false; G.keys.r = false;
+      G.bsk.x = G.W / 2 - G.bsk.w / 2;
+      document.getElementById("gScore").textContent = "0";
+      document.getElementById("gLives").textContent = "3";
+      document.getElementById("gStartBtn").textContent = "▶ Iniciar";
+      drawIdle();
+    }
+
+    function updGame(dt) {
+      if (G.keys.l) { G.bsk.x -= 5; } if (G.keys.r) { G.bsk.x += 5; }
+      G.bsk.x = Math.max(0, Math.min(G.W - G.bsk.w, G.bsk.x));
+      G.sTimer += dt;
+      if (G.sTimer >= G.sDelay) {
+        G.sTimer = 0; G.diff++; G.sDelay = Math.max(580, 1400 - G.diff * 14);
+        var t = ITYPES[Math.floor(Math.random() * ITYPES.length)];
+        G.items.push({ x: 20 + Math.random() * (G.W - 40), y: -28, e: t.e, p: t.p, b: t.b, s: 1.7 + Math.random() * 1.3 + G.diff * .04 });
+      }
+      var bx = G.bsk.x, by = G.bsk.y, bw = G.bsk.w, bh = G.bsk.h;
+      G.items = G.items.filter(function (it) {
+        it.y += it.s;
+        if (it.y > G.H + 20) { if (!it.b) { G.lives--; playSnd('l'); document.getElementById("gLives").textContent = Math.max(0, G.lives); } return false; }
+        if (it.x > bx - 12 && it.x < bx + bw + 12 && it.y > by - 8 && it.y < by + bh + 8) {
+          G.score += it.p; if (G.score < 0) G.score = 0;
+          if (it.b) { G.lives--; playSnd('l'); document.getElementById("gLives").textContent = Math.max(0, G.lives); } else { playSnd('c'); }
+          document.getElementById("gScore").textContent = G.score;
+          G.efx.push({ x: it.x, y: it.y, txt: (it.p >= 0 ? "+" : "") + it.p, col: it.b ? "#E8722A" : "#6BCB77", ttl: 35 });
+          return false;
+        }
+        return true;
+      });
+      G.efx.forEach(function (ef) { ef.y -= 1.1; ef.ttl--; });
+      G.efx = G.efx.filter(function (ef) { return ef.ttl > 0; });
+      if (G.lives <= 0) { G.run = false; cancelAnimationFrame(G.aid); drawFrm(); drawGO(); document.getElementById("gStartBtn").textContent = "▶ Iniciar"; }
+    }
+
+    function drawFrm() {
+      var ctx = G.ctx, W = G.W, H = G.H;
+      var gr = ctx.createLinearGradient(0, 0, 0, H);
+      gr.addColorStop(0, "rgba(59,139,235,.17)"); gr.addColorStop(1, "rgba(168,216,234,.22)");
+      ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "rgba(255,255,255,.05)"; ctx.lineWidth = 1;
+      for (var i = 0; i < W; i += 35) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, H); ctx.stroke(); }
+      ctx.font = "25px serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      G.items.forEach(function (it) { ctx.fillText(it.e, it.x, it.y); });
+      var bx = G.bsk.x, by = G.bsk.y, bw = G.bsk.w, bh = G.bsk.h;
+      if (window.bskImg && window.bskImg.complete) {
+        ctx.drawImage(window.bskImg, bx + bw / 2 - 45, by + bh / 2 - 50, 90, 90);
+      } else {
+        rrect(ctx, bx, by, bw, bh, 10);
+        ctx.fillStyle = "rgba(255,255,255,.92)"; ctx.fill();
+        ctx.strokeStyle = "#3B8BEB"; ctx.lineWidth = 2.5; ctx.stroke();
+        ctx.font = (bh + 2) + "px serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText("🍌", bx + bw / 2, by + bh / 2);
+      }
+      G.efx.forEach(function (ef) {
+        ctx.globalAlpha = ef.ttl / 35; ctx.fillStyle = ef.col;
+        ctx.font = "bold 16px Nunito,Arial,sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(ef.txt, ef.x, ef.y); ctx.globalAlpha = 1;
+      });
+      var hs = ""; for (var h = 0; h < Math.max(0, G.lives); h++) hs += "❤️";
+      if (hs) { ctx.font = "15px serif"; ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(hs, 7, 7); }
+    }
+
+    function drawIdle() {
+      var ctx = G.ctx, W = G.W, H = G.H; ctx.clearRect(0, 0, W, H);
+      var gr = ctx.createLinearGradient(0, 0, 0, H);
+      gr.addColorStop(0, "rgba(59,139,235,.18)"); gr.addColorStop(1, "rgba(168,216,234,.23)");
+      ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "rgba(255,255,255,.82)"; ctx.font = "bold 18px Nunito,Arial,sans-serif";
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText("🐾  ¡Pulsa Iniciar para jugar!  🦴", W / 2, H / 2 - 18);
+      ctx.font = "14px Nunito,Arial,sans-serif"; ctx.fillStyle = "rgba(255,255,255,.6)";
+      ctx.fillText("Atrapa huesos ⭐🎈🎂 · Evita 💣❌", W / 2, H / 2 + 16);
+      var bx = G.bsk.x, by = G.bsk.y, bw = G.bsk.w, bh = G.bsk.h;
+      if (window.bskImg && window.bskImg.complete) {
+        ctx.drawImage(window.bskImg, bx + bw / 2 - 45, by + bh / 2 - 50, 90, 90);
+      } else {
+        rrect(ctx, bx, by, bw, bh, 10); ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fill();
+        ctx.strokeStyle = "#3B8BEB"; ctx.lineWidth = 2.5; ctx.stroke();
+        ctx.font = (bh + 2) + "px serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText("🍌", bx + bw / 2, by + bh / 2);
+      }
+    }
+
+    function drawGO() {
+      var ctx = G.ctx, W = G.W, H = G.H;
+      ctx.fillStyle = "rgba(26,95,180,.88)"; ctx.fillRect(0, 0, W, H);
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillStyle = "#fff"; ctx.font = "bold 24px Nunito,Arial,sans-serif";
+      ctx.fillText("¡Juego Terminado! 🐾", W / 2, H / 2 - 32);
+      ctx.fillStyle = "#FFD93D"; ctx.font = "bold 20px Nunito,Arial,sans-serif";
+      ctx.fillText("⭐ Puntuación: " + G.score, W / 2, H / 2 + 6);
+      ctx.fillStyle = "rgba(255,255,255,.72)"; ctx.font = "14px Nunito,Arial,sans-serif";
+      ctx.fillText("↺ Toca Reiniciar para volver a jugar", W / 2, H / 2 + 42);
+    }
+
+    // ── START ──
+    initCfg();
+  </script>
+</body>
+
+</html>

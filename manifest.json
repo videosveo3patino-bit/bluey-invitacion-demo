@@ -1,0 +1,22 @@
+{
+  "name": "Invitación Bluey",
+  "short_name": "Bluey Inv",
+  "description": "¡Invitación interactiva para fiesta temática de Bluey!",
+  "start_url": "./bluey_invitation_v3.html",
+  "display": "standalone",
+  "background_color": "#E8F4FD",
+  "theme_color": "#3B8BEB",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/d/1rCQAsfvUGJi6QE0zVtbGcbALfN_YsaSD",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://lh3.googleusercontent.com/d/1rCQAsfvUGJi6QE0zVtbGcbALfN_YsaSD",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
